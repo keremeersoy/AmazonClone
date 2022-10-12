@@ -1,17 +1,16 @@
 import { Provider } from "react-redux";
 import { store } from "../app/store";
 import "../styles/globals.css";
-import { SessionProvider } from "next-auth/react";
+import { Provider as AuthProvider } from "next-auth/client";
 
-const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
+const MyApp = ({ Component, pageProps }) => {
 	return (
-		<SessionProvider session={session} refetchInterval={5 * 60}>
+		<AuthProvider session={pageProps.session}>
 			<Provider store={store}>
 				<Component {...pageProps} />
 			</Provider>
-		</SessionProvider>
+		</AuthProvider>
 	);
 };
 
 export default MyApp;
-
